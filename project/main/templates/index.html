@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block head %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('main.static',filename='main.css') }}">
+{% endblock %}
+{% block body %}
+    {% if form.link.errors %}
+        <ul class="errors">
+            {% for error in form.link.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <div class="container">
+        <a href="#" class="heading"><h1>minify.com</h1></a>
+        <form action="{{ url_for('main.index') }}" method="POST" class="box">
+                {{form.csrf_token}}
+                <label id="label">{{form.link.label}}</label>
+                {{form.link(class_='form-control', id='input')}}
+                {{form.submit(class_='submit')}}
+        </form>
+        {% if url %}
+        <a href="/{{url}}">www.minify.com/{{url}}</a>
+        {% endif %}
+        <h2 class="footer">Made by Sanchit Jain</h2>
+    </div>
+{% endblock %}
